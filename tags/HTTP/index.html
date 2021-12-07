@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://ghgws.github.io">
-  <title>韶华易逝，岁月无声</title>
+  <title>Tag: HTTP | 韶华易逝，岁月无声</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="ghgws的个人博客，记录生活、技术，分享经验、思路">
 <meta property="og:type" content="website">
 <meta property="og:title" content="韶华易逝，岁月无声">
-<meta property="og:url" content="https://ghgws.github.io/index.html">
+<meta property="og:url" content="https://ghgws.github.io/tags/HTTP/index.html">
 <meta property="og:site_name" content="韶华易逝，岁月无声">
 <meta property="og:description" content="ghgws的个人博客，记录生活、技术，分享经验、思路">
 <meta property="og:locale" content="zh_CN">
@@ -147,116 +147,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Http协议基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2021-11-21T08:27:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">拆解HTTP协议(1)</a>
+      <a class="archive-article-title" href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">拆解HTTP协议(1)</a>
     </h1>
   
 
-        
-        <a href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2021-11-21T08:27:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是拆解HTTP协议系列的第一篇文章。很多朋友认为网络协议的学习比较琐碎枯燥，我觉得计网的学习不该计较于某个细节，毕竟计网有那么多的协议，穷究于细节之中，既无必要也不现实。计网不论多么复杂，都是在描述两台计算机如何互相通信，所有协议的机制、细节的设计，必然也是为了解决相应的通信存在的问题。从这个角度来思考HTTP协议，就是本系列文章的主旨所在。一家之言，如有谬误，烦请斧正。</p>
-<p>本系列文章计划写三篇：</p>
-<ul>
-<li>HTTP协议的基本运作</li>
-<li>HTTP协议面临的挑战</li>
-<li>HTTP协议体系</li>
-</ul>
-<p>现在暂时先抛开HTTP协议（超文本传输协议）的现有实现，设想一下如果要自己设计一个应用层协议来实现数据通信，最需要明确的几个问题是什么？我想有以下几个：</p>
-<ul>
-<li>通信的参与者</li>
-<li>通信的内容</li>
-</ul>
-<p>类比两个人通信，对一次通信过程，必然有人询问，另一个回答。在计算机通信中，二者就分别称为<strong>客户端</strong>和<strong>服务器</strong>。客户端发起的通信称为<strong>请求</strong>，服务器发起的通信称为<strong>响应</strong>。接下来是通信内容的问题，这个又可以拆解为两个问题：即资源解析问题和资源定位问题。<br>资源解析问题，可以类比一下文件扩展名，通知操作系统如何处理文件；资源定位问题，可以类比Id，同样是某个体在全体中的唯一标识。为了解决这两个问题，HTTP协议才采用了<strong>MIME</strong>和<strong>URI</strong>的概念。</p>
-<p>MIME定义了一系列数据类型，例如text/html、text/plain、image/jpeg等等，通过这样的约定，来保证客户端和服务器都能正确的解析传输的数据或文件。</p>
-<p>怎么为资源提供独一无二的标识（URI）呢？同样可以类比一下现实生活中找人的两种方式：</p>
-<ul>
-<li>小范围内往往可以直接以姓名区分，范围扩大可能重名，这时就需要学号、工号乃至身份证号了。优点也很鲜明：稳定。但实现更困难一些，这对应于所谓的URN，仍然处于实验阶段。</li>
-<li>快递邮寄地址，就好像人为划分的各级行政区和街道楼层一样，网络上的资源也可以根据所在位置逐级划分为scheme（协议）、host（主机）、path（路径）、name（资源名）、query（参数）、frag（片段）。这种方式实现更加简单直观，但是稳定性就不足了（好比搬家后原地址失效）。这对应的就是URL了。</li>
-</ul>
-<p>解决了实现通信的两个基础问题，现在可以开始通信了。其实流程上与人之间交流很相似，但是计算机和人脑不同，通信必须按照一定的规则进行，否则就是“胡言乱语”，无法被理解。</p>
-<p>那么通信的规则是什么呢？答案是报文。报文又可以分为请求报文和响应报文，两种的区别不大，结构都可以大致分为：</p>
-<ul>
-<li>起始行：请求报文的起始行（请求行）说明希望服务器做些什么，响应报文的起始行（响应行）说明服务器实际做了什么。</li>
-<li>首部：以键值对的形式对请求和响应补充信息。</li>
-<li>通信实体：HTTP传输的载荷。</li>
-</ul>
-<p>下面分别介绍。</p>
-<h5 id="1-请求行"><a href="#1-请求行" class="headerlink" title="1.请求行"></a>1.请求行</h5><p>三部分构成：请求方法 URL HTTP版本。</p>
-<h6 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h6><p>告知服务器要做的事情的性质。</p>
-<ul>
-<li>GET：获取文档</li>
-<li>HEAD：获取文档的首部</li>
-<li>POST：向服务器发送数据（最常见的表单提交）</li>
-<li>PUT：要求服务器存储通信实体的内容</li>
-<li>DELETE：要求服务器删除某文档</li>
-<li>OPTIONS：询问服务器支持的方法</li>
-<li>TRACE：对可能经过代理服务器传送到服务器上的报文进行追踪</li>
-</ul>
-<h6 id="HTTP版本"><a href="#HTTP版本" class="headerlink" title="HTTP版本"></a>HTTP版本</h6><p>客户端和服务器通过此来约定可以使用的HTTP特性和报文格式。</p>
-<h5 id="2-响应行"><a href="#2-响应行" class="headerlink" title="2.响应行"></a>2.响应行</h5><p>同样三部分：HTTP版本 状态码 原因短语</p>
-<h6 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h6><p>用来告诉客户端发生了什么。</p>
-<ul>
-<li>200-299：成功</li>
-<li>300-399：资源已经移动</li>
-<li>400-499：客户端请求出错</li>
-<li>500-599：服务器出错</li>
-</ul>
-<p>其中最常见的有：</p>
-<ul>
-<li>200：成功</li>
-<li>304：资源未被修改</li>
-<li>400：通用的客户端请求出错</li>
-<li>403：请求被拒绝</li>
-<li>404：找不到请求的URL</li>
-<li>500：通用的服务器出错</li>
-<li>503：服务暂不可用</li>
-</ul>
-<h6 id="原因短语"><a href="#原因短语" class="headerlink" title="原因短语"></a>原因短语</h6><p>对状态码的人类语言解释，便于理解</p>
-<h5 id="3-首部"><a href="#3-首部" class="headerlink" title="3.首部"></a>3.首部</h5><p>可以分为通用首部、请求首部、响应首部、实体首部和扩展首部五类。</p>
-<h6 id="通用首部"><a href="#通用首部" class="headerlink" title="通用首部"></a>通用首部</h6><p>在请求报文和响应报文中都有意义，提供了最基本的报文信息。</p>
-<ul>
-<li>信息首部：如Date表示报文创建的时间；Via表示报文经过的代理服、网关等中间节点</li>
-<li>缓存首部：如Cache-Control</li>
-</ul>
-<h6 id="请求首部"><a href="#请求首部" class="headerlink" title="请求首部"></a>请求首部</h6><p>只在请求报文中有意义。通常说明谁在发送请求、客户端的喜好和能力。</p>
-<ul>
-<li>信息首部：如Host给出接收请求的服务器的主机名和端口号；User-Agent给出请求的客户端程序等</li>
-<li>Accept首部：客户端提供喜好和能力，使服务器响应更明智</li>
-<li>条件请求首部：为请求加上条件限制</li>
-<li>安全请求首部：在获取资源前提供认证机制，如Cookie</li>
-<li>代理请求首部</li>
-</ul>
-<h6 id="响应首部"><a href="#响应首部" class="headerlink" title="响应首部"></a>响应首部</h6><p>为客户端提供额外信息。如响应者、响应者的功能等来优化客户端处理响应和发起请求。</p>
-<ul>
-<li>信息首部：如Retry-After表示资源不可用可在此时间重试</li>
-<li>协商首部</li>
-<li>安全响应首部：如和Cookie相对应的Set-Cookie</li>
-</ul>
-<h6 id="实体首部"><a href="#实体首部" class="headerlink" title="实体首部"></a>实体首部</h6><ul>
-<li>内容首部：描述实体内容的类型、大小等信息，如Content-Type表示实体的MIME类型；Content-Length表示实体内容的长度</li>
-<li>缓存首部：与被缓存实体相关的信息。如Expires表示缓存过期时间；Last-Modified表示资源上次被修改的时间</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -268,116 +186,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/17/hello-world/" class="archive-article-date">
-  	<time datetime="2021-11-17T08:38:33.545Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/17/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -399,10 +220,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
