@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://ghgws.github.io">
-  <title>Archives | 韶华易逝，岁月无声</title>
+  <title>jquery源码学习笔记（1）.md | 韶华易逝，岁月无声</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ghgws的个人博客，记录生活、技术，分享经验、思路">
-<meta property="og:type" content="website">
-<meta property="og:title" content="韶华易逝，岁月无声">
-<meta property="og:url" content="https://ghgws.github.io/archives/index.html">
+  <meta name="description" content="构造jQuery对象1.1 构造函数jQuery()jQuery对象是一个类数组对象。具有连续的整型属性、length属性和大量方法，通过jQuery()构造函数创建。 1.1.1 整体结构123456789101112var jQuery &#x3D; (function() &amp;#123;    var jQuery &#x3D; function(selector, context) &amp;#123; &#x2F;&#x2F; 在IIF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jquery源码学习笔记（1）.md">
+<meta property="og:url" content="https://ghgws.github.io/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/index.html">
 <meta property="og:site_name" content="韶华易逝，岁月无声">
-<meta property="og:description" content="ghgws的个人博客，记录生活、技术，分享经验、思路">
+<meta property="og:description" content="构造jQuery对象1.1 构造函数jQuery()jQuery对象是一个类数组对象。具有连续的整型属性、length属性和大量方法，通过jQuery()构造函数创建。 1.1.1 整体结构123456789101112var jQuery &#x3D; (function() &amp;#123;    var jQuery &#x3D; function(selector, context) &amp;#123; &#x2F;&#x2F; 在IIF">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-10T07:54:13.000Z">
+<meta property="article:modified_time" content="2022-04-15T09:29:53.928Z">
 <meta property="article:author" content="ghgws">
-<meta property="article:tag" content="前端, React, Node.js,">
+<meta property="article:tag" content="jQuery 源码">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="韶华易逝，岁月无声" type="application/atom+xml">
@@ -145,74 +147,117 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-jquery源码学习笔记（1）-md" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-06-01T07:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/">http协议1.1.md</a>
+    <h1 class="article-title" itemprop="name">
+      jquery源码学习笔记（1）.md
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/" class="archive-article-date">
+        
+        <a href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/" class="archive-article-date">
   	<time datetime="2022-04-10T07:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/">jquery源码学习笔记（1）.md</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="构造jQuery对象"><a href="#构造jQuery对象" class="headerlink" title="构造jQuery对象"></a>构造jQuery对象</h2><h3 id="1-1-构造函数jQuery"><a href="#1-1-构造函数jQuery" class="headerlink" title="1.1 构造函数jQuery()"></a>1.1 构造函数jQuery()</h3><p>jQuery对象是一个类数组对象。具有连续的整型属性、length属性和大量方法，通过jQuery()构造函数创建。</p>
+<h4 id="1-1-1-整体结构"><a href="#1-1-1-整体结构" class="headerlink" title="1.1.1 整体结构"></a>1.1.1 整体结构</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123; <span class="comment">// 在IIFE中定义局部变量jQuery,降低jQuery对象模块和其他模块的耦合</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init(selector, context, rootjQuery); <span class="comment">// 借用原型方法实现无new构造</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 定义一系列变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 原型定义，实现继承</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 扩展jQuery对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> jQuery; <span class="comment">// 暴露接口</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+<p>要实现无new构造，需要重新设置原型链，即：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn = jQuery.prototype; <span class="comment">// 简化原型写法（fn成为原型别名）</span></span><br><span class="line">jQuery.fn.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line">jQuery.fn.init.prototype = jQuery.fn; <span class="comment">//保证通过jQuery()间接调用jQuery.fn.init()得到的jQuery对象原型指向正确，从而能够后续调用原型属性和方法；同时有效减少每个jQuery对象所需内存。</span></span><br></pre></td></tr></table></figure>
+
+<p>jQuery对象的大部分属性和方法都通过继承，非继承的属性只有5种，即整型属性、length、context、selector和prevObject。</p>
+<p>真正执行创建jQuery对象的init方法是一个复杂的函数，根据参数不同执行不同的创建过程。</p>
+<h5 id="init函数的具体实现"><a href="#init函数的具体实现" class="headerlink" title="init函数的具体实现"></a>init函数的具体实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">	<span class="attr">constructor</span>: jQuery, <span class="comment">// 保持constructor和prototype属性的正确对应</span></span><br><span class="line">	<span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context, rootjQuery </span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> match, elem, ret, doc; <span class="comment">// 变量准备</span></span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery空对象的选择器字符串默认为空</span></span><br><span class="line">	<span class="attr">selector</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery版本号</span></span><br><span class="line">	<span class="attr">jquery</span>: <span class="string">&quot;1.7.1&quot;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery空对象的length为0</span></span><br><span class="line">	<span class="attr">length</span>: <span class="number">0</span>,</span><br><span class="line"><span class="keyword">var</span> match, elem, ret, doc; </span><br></pre></td></tr></table></figure>
+
+<h6 id="分支1：selector-false"><a href="#分支1：selector-false" class="headerlink" title="分支1：selector == false"></a>分支1：selector == false</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!selector) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>; <span class="comment">// 直接返回this，即一个空jQuery对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支2：selector为DOM对象"><a href="#分支2：selector为DOM对象" class="headerlink" title="分支2：selector为DOM对象"></a>分支2：selector为DOM对象</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (selector.nodeType) &#123;</span><br><span class="line">	<span class="built_in">this</span>.context = <span class="built_in">this</span>[<span class="number">0</span>] = selector; <span class="comment">// 在context属性中指向DOM元素</span></span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支3：selector为“body”字符串"><a href="#分支3：selector为“body”字符串" class="headerlink" title="分支3：selector为“body”字符串"></a>分支3：selector为“body”字符串</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (selector === <span class="string">&quot;body&quot;</span> &amp;&amp; !context &amp;&amp; <span class="built_in">document</span>.body) &#123;</span><br><span class="line">    <span class="built_in">this</span>.context = <span class="built_in">document</span>;</span><br><span class="line">    <span class="built_in">this</span>[<span class="number">0</span>] = <span class="built_in">document</span>.body;</span><br><span class="line">    <span class="built_in">this</span>.selector = selector;</span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支4：selector为其他字符串"><a href="#分支4：selector为其他字符串" class="headerlink" title="分支4：selector为其他字符串"></a>分支4：selector为其他字符串</h6><p>其他字符串又可以分为html字符串、选择器字符串、#id、单独标签四种。首先要通过正则来区分四种情况。在第一个正则匹配后，两个捕获组分别代表html和id/选择器</p>
+<ol>
+<li><p>对于html，正则区分是复杂的html字符串还是单独的标签；对于单独标签，使用document.createElement()创建节点；对于复杂html字符串，使用封装的buildFragment()方法实现一次性创建提升性能。（这个方法值得注意的地方有两点：</p>
+<ul>
+<li>why：为什么要通过fragment类型来实现节点插入？因为dom操作的昂贵性，通过使用fragment类型，可以将多次插入节点的操作简化为一次插入fragment操作，提升性能。</li>
+<li>实现的技巧：给jQuery维护静态属性fragments，并且缓存，以节省重复的创建。</li>
+</ul>
+<p>不管是哪种情况，都将创建的DOM元素数组通过jQuery.merge()方法合并到当前jQuery对象中并返回。</p>
+</li>
+<li><p>对于id，使用内建的find方法，暂略。</p>
+</li>
+</ol>
+<h6 id="分支5：selector为函数"><a href="#分支5：selector为函数" class="headerlink" title="分支5：selector为函数"></a>分支5：selector为函数</h6><p>此时为jQuery的入口函数写法，暂略。</p>
+<h6 id="分支6：selector为jQuery对象"><a href="#分支6：selector为jQuery对象" class="headerlink" title="分支6：selector为jQuery对象"></a>分支6：selector为jQuery对象</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( selector.selector !== <span class="literal">undefined</span> ) &#123; <span class="comment">//通过jQuery对象的selector属性来判断是否为jQuery对象，即：</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    var isJQuery = function(selector) &#123;</span></span><br><span class="line"><span class="comment">    	return selector.selector !== undefined;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">this</span>.selector = selector.selector;</span><br><span class="line">    <span class="built_in">this</span>.context = selector.context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支7：其他类型"><a href="#分支7：其他类型" class="headerlink" title="分支7：其他类型"></a>分支7：其他类型</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jQuery.makeArray( selector, <span class="built_in">this</span> );</span><br></pre></td></tr></table></figure>
+
+<p>暂略</p>
+<h3 id="1-2-extend"><a href="#1-2-extend" class="headerlink" title="1.2 extend()"></a>1.2 extend()</h3><p>这是jQuery最核心的方法之一，主要作用是从源对象向目标对象复制属性，支持深拷贝。</p>
+<p>现手写如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn.extend = jQuery.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 使用arguments类数组处理参数是常用技巧</span></span><br><span class="line">    <span class="keyword">var</span> key, raw, curObj, copy, deep, length, copyIsArray, i, target;</span><br><span class="line">    length = <span class="built_in">arguments</span>.length;</span><br><span class="line">    target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;; <span class="comment">// 第一个参数默认是target对象</span></span><br><span class="line">    i = <span class="number">1</span>; <span class="comment">// i表示源对象的index,初始化为1即默认arguments[1]为第一个源对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据参数类型修正变量</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">&quot;boolean&quot;</span>) &#123; <span class="comment">//开启深拷贝</span></span><br><span class="line">        deep = target;</span><br><span class="line">        target = <span class="built_in">arguments</span>[<span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target !== <span class="string">&quot;object&quot;</span> || !jQuery.isFunction(target)) &#123;</span><br><span class="line">        target = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (length === <span class="number">1</span>) &#123; <span class="comment">// 此时表示省略了target对象，则target默认为jQuery对象</span></span><br><span class="line">        target = <span class="built_in">this</span>;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (curObj = <span class="built_in">arguments</span>[i] != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (key <span class="keyword">in</span> curObj) &#123;</span><br><span class="line">                raw = target[key];</span><br><span class="line">                copy = curObj[key];</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (target === copy) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>; <span class="comment">// 避免无限循环</span></span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (deep &amp;&amp; copy &amp;&amp; (jQuery.isPlainObject(copy) || (copyIsArray = <span class="built_in">Array</span>.isArray(copy)))) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (copyIsArray) &#123;</span><br><span class="line">                        copyIsArray = <span class="literal">false</span>;</span><br><span class="line">                        clone = raw &amp;&amp; <span class="built_in">Array</span>.isArray(raw) ? raw : [];</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        clone = raw &amp;&amp; jQuery.isPlainObject(raw) ? raw : &#123;&#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    target[key] = jQuery.extend(deep, clone, copy);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (copy !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    target[key] = copy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-原型属性和方法"><a href="#1-3-原型属性和方法" class="headerlink" title="1.3  原型属性和方法"></a>1.3  原型属性和方法</h3><h3 id="1-4-静态属性和方法"><a href="#1-4-静态属性和方法" class="headerlink" title="1.4 静态属性和方法"></a>1.4 静态属性和方法</h3><h4 id="1-4-1-防止变量冲突：-noConflict"><a href="#1-4-1-防止变量冲突：-noConflict" class="headerlink" title="1.4.1 防止变量冲突：$.noConflict()"></a>1.4.1 防止变量冲突：$.noConflict()</h4><p>在jQuery初始化时，在_$和_jQuery上保存上一个使用$和jQuery的库，然后在该函数中释放。</p>
+<h4 id="1-4-2-类型判断相关"><a href="#1-4-2-类型判断相关" class="headerlink" title="1.4.2 类型判断相关"></a>1.4.2 类型判断相关</h4><h5 id="typeof的不足"><a href="#typeof的不足" class="headerlink" title="typeof的不足"></a>typeof的不足</h5><ul>
+<li>typeof不能判断null，array只能识别为对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> class2Type = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> toString = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;Boolean Number String Function Array Date RegExp Object&quot;</span>;</span><br><span class="line">str.split(<span class="string">&quot; &quot;</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123; <span class="comment">// 这里实现不同于源码，用的原生迭代，jQuery用的each方法</span></span><br><span class="line">    class2Type[<span class="string">&quot;[object &quot;</span> + item + <span class="string">&quot;]&quot;</span> ] = item.toLowercase();</span><br><span class="line">&#125;)</span><br><span class="line">jQuery.extend(&#123;</span><br><span class="line"> 	<span class="attr">type</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">String</span>(obj);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> class2Type[toString.call(obj)] || <span class="string">&quot;object&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isFunction</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jQuery.type(obj) === <span class="string">&quot;function&quot;</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isArray</span>: <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jQuery.type(obj) === <span class="string">&quot;array&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="window的判断"><a href="#window的判断" class="headerlink" title="window的判断"></a>window的判断</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isWindow</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj.window === obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="类数字的判断"><a href="#类数字的判断" class="headerlink" title="类数字的判断"></a>类数字的判断</h5><p>综合利用js的三个函数实现：即parseFloat、isNaN、isFinite.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isNumberic</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">return</span> !<span class="built_in">isNaN</span>(<span class="built_in">parseFloat</span>(obj)) &amp;&amp; !<span class="built_in">isFinite</span>(obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="空对象的判断"><a href="#空对象的判断" class="headerlink" title="空对象的判断"></a>空对象的判断</h5><p>遍历对象的所有可枚举属性，若有，则返回false。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isEmptyObject</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">var</span> name;</span><br><span class="line">        <span class="keyword">for</span>(name <span class="keyword">in</span> obj) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="isPlainObject"><a href="#isPlainObject" class="headerlink" title="isPlainObject()"></a>isPlainObject()</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hasOwn = <span class="built_in">Object</span>.prototype.hasOwnProperty;</span><br><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isPlainObject</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">if</span> (!obj || jQuery.type(obj) !== <span class="string">&quot;object&quot;</span> || obj.nodeType || jQuery.isWindow(obj)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 第一重判断后，确保obj一定是自建对象类型或者Object构造函数new创建的对象或者字面量创建的对象</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (obj.constructor </span><br><span class="line">                &amp;&amp; !hasOwn.call(obj, <span class="string">&quot;constructor&quot;</span>) </span><br><span class="line">                &amp;&amp; !hasOwn.call(obj.constructor.prototype, <span class="string">&quot;isPrototypeOf&quot;</span>)</span><br><span class="line">               ) &#123;</span><br><span class="line">            	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> name;</span><br><span class="line">        <span class="keyword">for</span> (name <span class="keyword">in</span> obj) &#123;<span class="comment">// for-in循环的遍历顺序：先遍历自身属性后遍历继承属性</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name === <span class="literal">undefined</span> || hasOwn.call(obj, name); <span class="comment">// 最后一个属性为自身属性，则之前全为自身属性</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -224,56 +269,115 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://ghgws.github.io/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/17/hello-world/" class="archive-article-date">
-  	<time datetime="2021-11-17T08:38:33.545Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-17</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/17/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          http协议1.1.md
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -296,8 +400,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

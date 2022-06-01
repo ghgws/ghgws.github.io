@@ -147,107 +147,187 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Http协议基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-http协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">拆解HTTP协议(1)</a>
+      <a class="article-title" href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/">http协议1.1.md</a>
     </h1>
   
 
         
-        <a href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2021-11-21T08:27:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-21</time>
+        <a href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
+  	<time datetime="2022-06-01T07:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这是拆解HTTP协议系列的第一篇文章。很多朋友认为网络协议的学习比较琐碎枯燥，我觉得计网的学习不该计较于某个细节，毕竟计网有那么多的协议，穷究于细节之中，既无必要也不现实。计网不论多么复杂，都是在描述两台计算机如何互相通信，所有协议的机制、细节的设计，必然也是为了解决相应的通信存在的问题。从这个角度来思考HTTP协议，就是本系列文章的主旨所在。一家之言，如有谬误，烦请斧正。</p>
-<p>本系列文章计划写三篇：</p>
+        <p><a name="IWxHZ"></a></p>
+<h2 id="1-http1-1"><a href="#1-http1-1" class="headerlink" title="1. http1.1"></a>1. http1.1</h2><p><a name="czzr6"></a></p>
+<h3 id="1-1-http基础"><a href="#1-1-http基础" class="headerlink" title="1.1 http基础"></a>1.1 http基础</h3><p><a name="TQEwm"></a></p>
+<h4 id="1-1-1-概述"><a href="#1-1-1-概述" class="headerlink" title="1.1.1 概述"></a>1.1.1 概述</h4><p>http协议（超文本传输协议）是一个计算机体系中传输文本、图片、音视频等超文本的约定和规则。它具有无状态、简单、拓展性强等特点。<br />从网络协议的分层来看，它属于应用层协议，它的底层实现基于TCP作为传输层。<br />从协议版本的变化来看，有http1.0、http1.1、http2、http3等；此外，还有https协议提供安全性支持。当前，最常见、服务器支持最充分的版本是http1.1 。下面提及的http协议没有特别说明均指http1.1 。<br><a name="ujjcP"></a></p>
+<h4 id="1-1-2-结构"><a href="#1-1-2-结构" class="headerlink" title="1.1.2 结构"></a>1.1.2 结构</h4><p>http协议基于请求-响应的通信机制，利用报文实现数据交换。因此http协议的报文也可以分为请求报文和响应报文两种。两种报文结构相似，都由头部 + 分割空行 + 报文体组成。</p>
 <ul>
-<li>HTTP协议的基本运作</li>
-<li>HTTP协议面临的挑战</li>
-<li>HTTP协议体系</li>
+<li><p>请求报文：请求报文的头部称为请求头，请求头的起始行又可以分为三部分，即请求方法、url、http协议版本。</p>
+</li>
+<li><p>响应报文：响应报文的头部称为响应头，响应头的起始行包括状态码、原因短语两部分<br><a name="vJFPe"></a></p>
+<h4 id="1-1-3-请求方法"><a href="#1-1-3-请求方法" class="headerlink" title="1.1.3 请求方法"></a>1.1.3 请求方法</h4></li>
+<li><p>GET：语义是获取服务器某路径下的资源。它是一种安全和幂等的方法。</p>
+</li>
+<li><p>POST：语义是在服务器上新建。也是表单提交的默认请求方法 。</p>
+</li>
+<li><p>DELETE：删除服务器的某个文档。</p>
+</li>
+<li><p>PUT：向服务器写入文档。</p>
+</li>
+<li><p>HEAD：与GET方法很类似，区别在于响应中只包含头部，不包含主体。常用于检查首部。</p>
+</li>
+<li><p>OPTION：请求web服务器告知其支持的全部请求方法。<br><a name="P3tHC"></a></p>
+<h4 id="1-1-4-状态码"><a href="#1-1-4-状态码" class="headerlink" title="1.1.4 状态码"></a>1.1.4 状态码</h4><p>常见状态码如下表：</p>
+</li>
 </ul>
-<p>现在暂时先抛开HTTP协议（超文本传输协议）的现有实现，设想一下如果要自己设计一个应用层协议来实现数据通信，最需要明确的几个问题是什么？我想有以下几个：</p>
+<table>
+<thead>
+<tr>
+<th>状态码类型</th>
+<th>状态码</th>
+<th>原因短语</th>
+<th>含义或应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2xx</td>
+<td>200</td>
+<td>OK</td>
+<td>成功，响应主体中包含所有数据</td>
+</tr>
+<tr>
+<td></td>
+<td>201</td>
+<td>Created</td>
+<td>创建资源成功的响应</td>
+</tr>
+<tr>
+<td></td>
+<td>204</td>
+<td>No Content</td>
+<td>请求成功，但是响应中不包含结果</td>
+</tr>
+<tr>
+<td></td>
+<td>206</td>
+<td>Partial Content</td>
+<td>响应的结果只是一部分，常用于分块传输、下载</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>301</td>
+<td>Moved Permanently</td>
+<td>资源永久转移至新地址，浏览器在响应头的Location字段中自动获取并重新请求</td>
+</tr>
+<tr>
+<td></td>
+<td>302</td>
+<td>Found</td>
+<td>资源临时转移至新地址，浏览器在响应头的Location字段中自动获取并重新请求</td>
+</tr>
+<tr>
+<td></td>
+<td>304</td>
+<td>Not Modified</td>
+<td>缓存重定向</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>400</td>
+<td>Request Error</td>
+<td>笼统地指出客户端请求报文错误</td>
+</tr>
+<tr>
+<td></td>
+<td>401</td>
+<td>Unauthorized</td>
+<td>未授权，需要输入账户名和密码等信息</td>
+</tr>
+<tr>
+<td></td>
+<td>403</td>
+<td>Forbidden</td>
+<td>并非客户端出错，而是服务器禁止访问此资源</td>
+</tr>
+<tr>
+<td></td>
+<td>404</td>
+<td>Not Found</td>
+<td>客户端请求的资源地址不存在</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>500</td>
+<td>Server Error</td>
+<td>笼统地指出服务器错误</td>
+</tr>
+<tr>
+<td></td>
+<td>501</td>
+<td>Not Implemented</td>
+<td>常见于服务器暂不支持此请求方法</td>
+</tr>
+<tr>
+<td></td>
+<td>502</td>
+<td>Gateway</td>
+<td>服务器充当网关或代理出错</td>
+</tr>
+<tr>
+<td></td>
+<td>503</td>
+<td>Service Unavailable</td>
+<td>服务当前不可用</td>
+</tr>
+</tbody></table>
+<p><a name="EkD99"></a></p>
+<h4 id="1-1-5-常见的报文头"><a href="#1-1-5-常见的报文头" class="headerlink" title="1.1.5 常见的报文头"></a>1.1.5 常见的报文头</h4><p>通用的头部有：</p>
 <ul>
-<li>通信的参与者</li>
-<li>通信的内容</li>
+<li>Accept系列请求头：包括Accept（媒体类型）、Accept-language（语言）、Accept-encoding（编码方式）、 Accept-charset（字符集）</li>
+<li>Content系列：包括Content-type（表示响应主体中数据的格式类型）、Content-length（表示响应返回的数据的字节长度，常用于进度等场景）</li>
+<li>Date：报文创建的时间</li>
+<li>UA系列：包含客户端有关的一系列信息</li>
 </ul>
-<p>类比两个人通信，对一次通信过程，必然有人询问，另一个回答。在计算机通信中，二者就分别称为<strong>客户端</strong>和<strong>服务器</strong>。客户端发起的通信称为<strong>请求</strong>，服务器发起的通信称为<strong>响应</strong>。接下来是通信内容的问题，这个又可以拆解为两个问题：即资源解析问题和资源定位问题。<br>资源解析问题，可以类比一下文件扩展名，通知操作系统如何处理文件；资源定位问题，可以类比Id，同样是某个体在全体中的唯一标识。为了解决这两个问题，HTTP协议才采用了<strong>MIME</strong>和<strong>URI</strong>的概念。</p>
-<p>MIME定义了一系列数据类型，例如text/html、text/plain、image/jpeg等等，通过这样的约定，来保证客户端和服务器都能正确的解析传输的数据或文件。</p>
-<p>怎么为资源提供独一无二的标识（URI）呢？同样可以类比一下现实生活中找人的两种方式：</p>
+<p>此外还有缓存相关的头部、安全相关的头部（Cookie、Authorization）、代理相关的头部（Via）<br><a name="kHb8I"></a></p>
+<h3 id="1-2-http的优点和缺点"><a href="#1-2-http的优点和缺点" class="headerlink" title="1.2 http的优点和缺点"></a>1.2 http的优点和缺点</h3><p><a name="ayEAy"></a></p>
+<h4 id="1-2-1-无状态与cookie"><a href="#1-2-1-无状态与cookie" class="headerlink" title="1.2.1 无状态与cookie"></a>1.2.1 无状态与cookie</h4><p>无状态这一特点对http协议是一把双刃剑，一方面大大简化了协议本身，服务器不需要额外记录状态，减轻服务器的负担；另一方面也限制了http协议实现关联性操作的能力。<br />为了弥补无状态的不足之处，http协议实现了cookie技术（一种浏览器本地存储技术）。即客户端向服务器发起请求后，服务器生成数据以Set-cookie的响应头返回客户端；客户端会将该头部的信息自动保存在cookie中，并在下次请求中自动将cookie数据以cookie的请求头传回服务器，以此实现判断两次请求是否来自同一客户端。<br />cookie的原理很简单，但是具体使用时有一定的限制。Set-cookie响应头除了指定key对应的value时，还应包含max-age（有效期）或者Expires（过期时间）、domain（作用域：允许子域名， 默认Origin）、path（作用路径）、http-only（是否允许js修改cookie）和新增的same-site属性。<br />same-site属性有三个：none、strict和lax。其中lax为默认值。none允许本站和跨站请求时都发送cookie；strict只允许本站请求；lax介于二者之间。<br><a name="paOw8"></a></p>
+<h4 id="1-2-2-长连接与队头阻塞"><a href="#1-2-2-长连接与队头阻塞" class="headerlink" title="1.2.2 长连接与队头阻塞"></a>1.2.2 长连接与队头阻塞</h4><p>http是建立在TCP协议上的应用层协议，它的性能很大程度上受到TCP协议性能的影响。http协议早期具有串行加载的特点，并且每个http请求都会打开一个新TCP连接，即每次请求都需要经历三次握手、四次挥手的时延，这大大影响了http的性能。为此http1.1开始使用长连接（持久连接，通过Connection：Keep-Alive实现），实现同一TCP连接的复用，只要任意一端没有明确指明连接关闭，就保持TCP连接（Connection：Close）或者长时间没有数据交互（服务器主动关闭）。<br />在http的早期版本，请求是串行的（或者说是一个请求队列），在同一个TCP连接中，等待前一次请求响应后，才能发出下一个请求，这是极大的浪费，当前一个请求响应时间比较长时，会引起巨大的队头阻塞现象。长连接的开启使管道化连接成了可能，开启管道化连接后，请求可以依次发出，而不必等待响应返回。这种方式解决了请求的队头阻塞，但没有解决响应的队头阻塞问题。<br><a name="oQOsY"></a></p>
+<h4 id="1-2-3-安全性"><a href="#1-2-3-安全性" class="headerlink" title="1.2.3 安全性"></a>1.2.3 安全性</h4><p>http协议明文传输，因此安全性上具有以下三个风险：</p>
 <ul>
-<li>小范围内往往可以直接以姓名区分，范围扩大可能重名，这时就需要学号、工号乃至身份证号了。优点也很鲜明：稳定。但实现更困难一些，这对应于所谓的URN，仍然处于实验阶段。</li>
-<li>快递邮寄地址，就好像人为划分的各级行政区和街道楼层一样，网络上的资源也可以根据所在位置逐级划分为scheme（协议）、host（主机）、path（路径）、name（资源名）、query（参数）、frag（片段）。这种方式实现更加简单直观，但是稳定性就不足了（好比搬家后原地址失效）。这对应的就是URL了。</li>
+<li>没有身份验证机制，存在冒充风险</li>
+<li>无法防窃听</li>
+<li>没有信息校验，存在篡改风险</li>
 </ul>
-<p>解决了实现通信的两个基础问题，现在可以开始通信了。其实流程上与人之间交流很相似，但是计算机和人脑不同，通信必须按照一定的规则进行，否则就是“胡言乱语”，无法被理解。</p>
-<p>那么通信的规则是什么呢？答案是报文。报文又可以分为请求报文和响应报文，两种的区别不大，结构都可以大致分为：</p>
+<p>为了解决http的安全性问题，提出了https协议。<br><a name="oijRT"></a></p>
+<h3 id="1-3-http1-1的性能优化"><a href="#1-3-http1-1的性能优化" class="headerlink" title="1.3 http1.1的性能优化"></a>1.3 http1.1的性能优化</h3><p><a name="UedeJ"></a></p>
+<h4 id="1-3-1-避免不必要的网络请求（http缓存）"><a href="#1-3-1-避免不必要的网络请求（http缓存）" class="headerlink" title="1.3.1 避免不必要的网络请求（http缓存）"></a>1.3.1 避免不必要的网络请求（http缓存）</h4><p>http缓存可以分为强缓存和协商缓存两种。</p>
+<p>强缓存：客户端准备请求时，先检查强缓存。如果缓存可用，则不再发起请求，直接返回200状态码。强缓存的实现主要与两个响应头相关，即Expires和Cache-control。其中Expires是一个绝对时间（过期时间），客户端检查缓存时比较过期时间和系统时间，决定缓存的有效性。因此使用系统时间，Expires的可靠性较低，优先级不然Cache-control。Cache-control包括一系列可选参数，如max-age（相对时间）、no-cache（强制使用强缓存时必须先协商缓存验证）、no-store（不使用缓存）</p>
+<p>协商缓存：调用缓存时，需要先向服务器请求得出缓存的有效性。同样具有两者实现方式，即If-Modified-Since/Last-Modified和If-None-Match/E-Tag。<br />第一组：用户首次请求资源时，响应头中会包含Last-Modified字段，标志资源的最后修改时间；协商缓存时，请求头在If-Modified-Since中带上值发送给服务器，服务器比较后决定是否返回新资源，如果无新资源，则状态码为304.<br />第二组：类似地，响应头包含E-Tag字段，作为此版本资源的唯一标识；协商缓存时，请求头在If-None-Match中带上值发送给服务器，服务器比较后决定是否返回新资源，如果无新资源，则状态码为304.<br />由于Etag比时间更精确，因此第二组的优先级高于第一组。<br /><strong>协商缓存这两个字段都需要配合强制缓存中 Cache-control 字段来使用，只有在未能命中强制缓存的时候，才能发起带有协商缓存字段的请求</strong>。<br><a name="LOQ71"></a></p>
+<h4 id="1-3-2-减少网络请求次数"><a href="#1-3-2-减少网络请求次数" class="headerlink" title="1.3.2 减少网络请求次数"></a>1.3.2 减少网络请求次数</h4><p>三个手段：</p>
 <ul>
-<li>起始行：请求报文的起始行（请求行）说明希望服务器做些什么，响应报文的起始行（响应行）说明服务器实际做了什么。</li>
-<li>首部：以键值对的形式对请求和响应补充信息。</li>
-<li>通信实体：HTTP传输的载荷。</li>
-</ul>
-<p>下面分别介绍。</p>
-<h5 id="1-请求行"><a href="#1-请求行" class="headerlink" title="1.请求行"></a>1.请求行</h5><p>三部分构成：请求方法 URL HTTP版本。</p>
-<h6 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h6><p>告知服务器要做的事情的性质。</p>
-<ul>
-<li>GET：获取文档</li>
-<li>HEAD：获取文档的首部</li>
-<li>POST：向服务器发送数据（最常见的表单提交）</li>
-<li>PUT：要求服务器存储通信实体的内容</li>
-<li>DELETE：要求服务器删除某文档</li>
-<li>OPTIONS：询问服务器支持的方法</li>
-<li>TRACE：对可能经过代理服务器传送到服务器上的报文进行追踪</li>
-</ul>
-<h6 id="HTTP版本"><a href="#HTTP版本" class="headerlink" title="HTTP版本"></a>HTTP版本</h6><p>客户端和服务器通过此来约定可以使用的HTTP特性和报文格式。</p>
-<h5 id="2-响应行"><a href="#2-响应行" class="headerlink" title="2.响应行"></a>2.响应行</h5><p>同样三部分：HTTP版本 状态码 原因短语</p>
-<h6 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h6><p>用来告诉客户端发生了什么。</p>
-<ul>
-<li>200-299：成功</li>
-<li>300-399：资源已经移动</li>
-<li>400-499：客户端请求出错</li>
-<li>500-599：服务器出错</li>
-</ul>
-<p>其中最常见的有：</p>
-<ul>
-<li>200：成功</li>
-<li>304：资源未被修改</li>
-<li>400：通用的客户端请求出错</li>
-<li>403：请求被拒绝</li>
-<li>404：找不到请求的URL</li>
-<li>500：通用的服务器出错</li>
-<li>503：服务暂不可用</li>
-</ul>
-<h6 id="原因短语"><a href="#原因短语" class="headerlink" title="原因短语"></a>原因短语</h6><p>对状态码的人类语言解释，便于理解</p>
-<h5 id="3-首部"><a href="#3-首部" class="headerlink" title="3.首部"></a>3.首部</h5><p>可以分为通用首部、请求首部、响应首部、实体首部和扩展首部五类。</p>
-<h6 id="通用首部"><a href="#通用首部" class="headerlink" title="通用首部"></a>通用首部</h6><p>在请求报文和响应报文中都有意义，提供了最基本的报文信息。</p>
-<ul>
-<li>信息首部：如Date表示报文创建的时间；Via表示报文经过的代理服、网关等中间节点</li>
-<li>缓存首部：如Cache-Control</li>
-</ul>
-<h6 id="请求首部"><a href="#请求首部" class="headerlink" title="请求首部"></a>请求首部</h6><p>只在请求报文中有意义。通常说明谁在发送请求、客户端的喜好和能力。</p>
-<ul>
-<li>信息首部：如Host给出接收请求的服务器的主机名和端口号；User-Agent给出请求的客户端程序等</li>
-<li>Accept首部：客户端提供喜好和能力，使服务器响应更明智</li>
-<li>条件请求首部：为请求加上条件限制</li>
-<li>安全请求首部：在获取资源前提供认证机制，如Cookie</li>
-<li>代理请求首部</li>
-</ul>
-<h6 id="响应首部"><a href="#响应首部" class="headerlink" title="响应首部"></a>响应首部</h6><p>为客户端提供额外信息。如响应者、响应者的功能等来优化客户端处理响应和发起请求。</p>
-<ul>
-<li>信息首部：如Retry-After表示资源不可用可在此时间重试</li>
-<li>协商首部</li>
-<li>安全响应首部：如和Cookie相对应的Set-Cookie</li>
-</ul>
-<h6 id="实体首部"><a href="#实体首部" class="headerlink" title="实体首部"></a>实体首部</h6><ul>
-<li>内容首部：描述实体内容的类型、大小等信息，如Content-Type表示实体的MIME类型；Content-Length表示实体内容的长度</li>
-<li>缓存首部：与被缓存实体相关的信息。如Expires表示缓存过期时间；Last-Modified表示资源上次被修改的时间</li>
+<li><p>延迟请求：懒加载、按需获取</p>
+</li>
+<li><p>合并请求：典型的如雪碧图、base64图片</p>
+</li>
+<li><p>减少重定向请求次数<br><a name="luWBw"></a></p>
+<h4 id="1-3-3-减少响应的数据大小（压缩）"><a href="#1-3-3-减少响应的数据大小（压缩）" class="headerlink" title="1.3.3 减少响应的数据大小（压缩）"></a>1.3.3 减少响应的数据大小（压缩）</h4></li>
+<li><p>Accept-encoding字段通知服务器支持的压缩算法，响应头中的Content-encoding字段通知客户端使用的压缩算法。常用的压缩算法有gzip、br等，其中br性能更优秀。</p>
+</li>
+<li><p>图片格式的选择</p>
+</li>
+<li><p>代码的uglify<br><a name="iIT5W"></a></p>
+</li>
 </ul>
 
       
@@ -262,7 +342,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
         		</li>
       		
 		</ul>
@@ -272,7 +352,142 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/21/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+          <a class="article-more-a" href="/2022/06/01/http%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-jquery源码学习笔记（1）-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/">jquery源码学习笔记（1）.md</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/" class="archive-article-date">
+  	<time datetime="2022-04-10T07:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="构造jQuery对象"><a href="#构造jQuery对象" class="headerlink" title="构造jQuery对象"></a>构造jQuery对象</h2><h3 id="1-1-构造函数jQuery"><a href="#1-1-构造函数jQuery" class="headerlink" title="1.1 构造函数jQuery()"></a>1.1 构造函数jQuery()</h3><p>jQuery对象是一个类数组对象。具有连续的整型属性、length属性和大量方法，通过jQuery()构造函数创建。</p>
+<h4 id="1-1-1-整体结构"><a href="#1-1-1-整体结构" class="headerlink" title="1.1.1 整体结构"></a>1.1.1 整体结构</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> jQuery = <span class="function"><span class="keyword">function</span>(<span class="params">selector, context</span>) </span>&#123; <span class="comment">// 在IIFE中定义局部变量jQuery,降低jQuery对象模块和其他模块的耦合</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init(selector, context, rootjQuery); <span class="comment">// 借用原型方法实现无new构造</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 定义一系列变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 原型定义，实现继承</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 扩展jQuery对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> jQuery; <span class="comment">// 暴露接口</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>要实现无new构造，需要重新设置原型链，即：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn = jQuery.prototype; <span class="comment">// 简化原型写法（fn成为原型别名）</span></span><br><span class="line">jQuery.fn.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line">jQuery.fn.init.prototype = jQuery.fn; <span class="comment">//保证通过jQuery()间接调用jQuery.fn.init()得到的jQuery对象原型指向正确，从而能够后续调用原型属性和方法；同时有效减少每个jQuery对象所需内存。</span></span><br></pre></td></tr></table></figure>
+
+<p>jQuery对象的大部分属性和方法都通过继承，非继承的属性只有5种，即整型属性、length、context、selector和prevObject。</p>
+<p>真正执行创建jQuery对象的init方法是一个复杂的函数，根据参数不同执行不同的创建过程。</p>
+<h5 id="init函数的具体实现"><a href="#init函数的具体实现" class="headerlink" title="init函数的具体实现"></a>init函数的具体实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn = jQuery.prototype = &#123;</span><br><span class="line">	<span class="attr">constructor</span>: jQuery, <span class="comment">// 保持constructor和prototype属性的正确对应</span></span><br><span class="line">	<span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context, rootjQuery </span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> match, elem, ret, doc; <span class="comment">// 变量准备</span></span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery空对象的选择器字符串默认为空</span></span><br><span class="line">	<span class="attr">selector</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery版本号</span></span><br><span class="line">	<span class="attr">jquery</span>: <span class="string">&quot;1.7.1&quot;</span>,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jQuery空对象的length为0</span></span><br><span class="line">	<span class="attr">length</span>: <span class="number">0</span>,</span><br><span class="line"><span class="keyword">var</span> match, elem, ret, doc; </span><br></pre></td></tr></table></figure>
+
+<h6 id="分支1：selector-false"><a href="#分支1：selector-false" class="headerlink" title="分支1：selector == false"></a>分支1：selector == false</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!selector) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>; <span class="comment">// 直接返回this，即一个空jQuery对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支2：selector为DOM对象"><a href="#分支2：selector为DOM对象" class="headerlink" title="分支2：selector为DOM对象"></a>分支2：selector为DOM对象</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (selector.nodeType) &#123;</span><br><span class="line">	<span class="built_in">this</span>.context = <span class="built_in">this</span>[<span class="number">0</span>] = selector; <span class="comment">// 在context属性中指向DOM元素</span></span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支3：selector为“body”字符串"><a href="#分支3：selector为“body”字符串" class="headerlink" title="分支3：selector为“body”字符串"></a>分支3：selector为“body”字符串</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (selector === <span class="string">&quot;body&quot;</span> &amp;&amp; !context &amp;&amp; <span class="built_in">document</span>.body) &#123;</span><br><span class="line">    <span class="built_in">this</span>.context = <span class="built_in">document</span>;</span><br><span class="line">    <span class="built_in">this</span>[<span class="number">0</span>] = <span class="built_in">document</span>.body;</span><br><span class="line">    <span class="built_in">this</span>.selector = selector;</span><br><span class="line">    <span class="built_in">this</span>.length = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支4：selector为其他字符串"><a href="#分支4：selector为其他字符串" class="headerlink" title="分支4：selector为其他字符串"></a>分支4：selector为其他字符串</h6><p>其他字符串又可以分为html字符串、选择器字符串、#id、单独标签四种。首先要通过正则来区分四种情况。在第一个正则匹配后，两个捕获组分别代表html和id/选择器</p>
+<ol>
+<li><p>对于html，正则区分是复杂的html字符串还是单独的标签；对于单独标签，使用document.createElement()创建节点；对于复杂html字符串，使用封装的buildFragment()方法实现一次性创建提升性能。（这个方法值得注意的地方有两点：</p>
+<ul>
+<li>why：为什么要通过fragment类型来实现节点插入？因为dom操作的昂贵性，通过使用fragment类型，可以将多次插入节点的操作简化为一次插入fragment操作，提升性能。</li>
+<li>实现的技巧：给jQuery维护静态属性fragments，并且缓存，以节省重复的创建。</li>
+</ul>
+<p>不管是哪种情况，都将创建的DOM元素数组通过jQuery.merge()方法合并到当前jQuery对象中并返回。</p>
+</li>
+<li><p>对于id，使用内建的find方法，暂略。</p>
+</li>
+</ol>
+<h6 id="分支5：selector为函数"><a href="#分支5：selector为函数" class="headerlink" title="分支5：selector为函数"></a>分支5：selector为函数</h6><p>此时为jQuery的入口函数写法，暂略。</p>
+<h6 id="分支6：selector为jQuery对象"><a href="#分支6：selector为jQuery对象" class="headerlink" title="分支6：selector为jQuery对象"></a>分支6：selector为jQuery对象</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( selector.selector !== <span class="literal">undefined</span> ) &#123; <span class="comment">//通过jQuery对象的selector属性来判断是否为jQuery对象，即：</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    var isJQuery = function(selector) &#123;</span></span><br><span class="line"><span class="comment">    	return selector.selector !== undefined;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">this</span>.selector = selector.selector;</span><br><span class="line">    <span class="built_in">this</span>.context = selector.context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分支7：其他类型"><a href="#分支7：其他类型" class="headerlink" title="分支7：其他类型"></a>分支7：其他类型</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> jQuery.makeArray( selector, <span class="built_in">this</span> );</span><br></pre></td></tr></table></figure>
+
+<p>暂略</p>
+<h3 id="1-2-extend"><a href="#1-2-extend" class="headerlink" title="1.2 extend()"></a>1.2 extend()</h3><p>这是jQuery最核心的方法之一，主要作用是从源对象向目标对象复制属性，支持深拷贝。</p>
+<p>现手写如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">jQuery.fn.extend = jQuery.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 使用arguments类数组处理参数是常用技巧</span></span><br><span class="line">    <span class="keyword">var</span> key, raw, curObj, copy, deep, length, copyIsArray, i, target;</span><br><span class="line">    length = <span class="built_in">arguments</span>.length;</span><br><span class="line">    target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;; <span class="comment">// 第一个参数默认是target对象</span></span><br><span class="line">    i = <span class="number">1</span>; <span class="comment">// i表示源对象的index,初始化为1即默认arguments[1]为第一个源对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据参数类型修正变量</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">&quot;boolean&quot;</span>) &#123; <span class="comment">//开启深拷贝</span></span><br><span class="line">        deep = target;</span><br><span class="line">        target = <span class="built_in">arguments</span>[<span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target !== <span class="string">&quot;object&quot;</span> || !jQuery.isFunction(target)) &#123;</span><br><span class="line">        target = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (length === <span class="number">1</span>) &#123; <span class="comment">// 此时表示省略了target对象，则target默认为jQuery对象</span></span><br><span class="line">        target = <span class="built_in">this</span>;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (curObj = <span class="built_in">arguments</span>[i] != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (key <span class="keyword">in</span> curObj) &#123;</span><br><span class="line">                raw = target[key];</span><br><span class="line">                copy = curObj[key];</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (target === copy) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>; <span class="comment">// 避免无限循环</span></span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (deep &amp;&amp; copy &amp;&amp; (jQuery.isPlainObject(copy) || (copyIsArray = <span class="built_in">Array</span>.isArray(copy)))) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (copyIsArray) &#123;</span><br><span class="line">                        copyIsArray = <span class="literal">false</span>;</span><br><span class="line">                        clone = raw &amp;&amp; <span class="built_in">Array</span>.isArray(raw) ? raw : [];</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        clone = raw &amp;&amp; jQuery.isPlainObject(raw) ? raw : &#123;&#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    target[key] = jQuery.extend(deep, clone, copy);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (copy !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    target[key] = copy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-原型属性和方法"><a href="#1-3-原型属性和方法" class="headerlink" title="1.3  原型属性和方法"></a>1.3  原型属性和方法</h3><h3 id="1-4-静态属性和方法"><a href="#1-4-静态属性和方法" class="headerlink" title="1.4 静态属性和方法"></a>1.4 静态属性和方法</h3><h4 id="1-4-1-防止变量冲突：-noConflict"><a href="#1-4-1-防止变量冲突：-noConflict" class="headerlink" title="1.4.1 防止变量冲突：$.noConflict()"></a>1.4.1 防止变量冲突：$.noConflict()</h4><p>在jQuery初始化时，在_$和_jQuery上保存上一个使用$和jQuery的库，然后在该函数中释放。</p>
+<h4 id="1-4-2-类型判断相关"><a href="#1-4-2-类型判断相关" class="headerlink" title="1.4.2 类型判断相关"></a>1.4.2 类型判断相关</h4><h5 id="typeof的不足"><a href="#typeof的不足" class="headerlink" title="typeof的不足"></a>typeof的不足</h5><ul>
+<li>typeof不能判断null，array只能识别为对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> class2Type = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> toString = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;Boolean Number String Function Array Date RegExp Object&quot;</span>;</span><br><span class="line">str.split(<span class="string">&quot; &quot;</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123; <span class="comment">// 这里实现不同于源码，用的原生迭代，jQuery用的each方法</span></span><br><span class="line">    class2Type[<span class="string">&quot;[object &quot;</span> + item + <span class="string">&quot;]&quot;</span> ] = item.toLowercase();</span><br><span class="line">&#125;)</span><br><span class="line">jQuery.extend(&#123;</span><br><span class="line"> 	<span class="attr">type</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">String</span>(obj);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> class2Type[toString.call(obj)] || <span class="string">&quot;object&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isFunction</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jQuery.type(obj) === <span class="string">&quot;function&quot;</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">isArray</span>: <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jQuery.type(obj) === <span class="string">&quot;array&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="window的判断"><a href="#window的判断" class="headerlink" title="window的判断"></a>window的判断</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isWindow</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj.window === obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="类数字的判断"><a href="#类数字的判断" class="headerlink" title="类数字的判断"></a>类数字的判断</h5><p>综合利用js的三个函数实现：即parseFloat、isNaN、isFinite.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isNumberic</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">return</span> !<span class="built_in">isNaN</span>(<span class="built_in">parseFloat</span>(obj)) &amp;&amp; !<span class="built_in">isFinite</span>(obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="空对象的判断"><a href="#空对象的判断" class="headerlink" title="空对象的判断"></a>空对象的判断</h5><p>遍历对象的所有可枚举属性，若有，则返回false。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isEmptyObject</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">var</span> name;</span><br><span class="line">        <span class="keyword">for</span>(name <span class="keyword">in</span> obj) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="isPlainObject"><a href="#isPlainObject" class="headerlink" title="isPlainObject()"></a>isPlainObject()</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hasOwn = <span class="built_in">Object</span>.prototype.hasOwnProperty;</span><br><span class="line">jQuery.extend(&#123;</span><br><span class="line">    <span class="attr">isPlainObject</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123; <span class="comment">// 不能转化为数字的obj，parseFloat会返回NaN</span></span><br><span class="line">        <span class="keyword">if</span> (!obj || jQuery.type(obj) !== <span class="string">&quot;object&quot;</span> || obj.nodeType || jQuery.isWindow(obj)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 第一重判断后，确保obj一定是自建对象类型或者Object构造函数new创建的对象或者字面量创建的对象</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (obj.constructor </span><br><span class="line">                &amp;&amp; !hasOwn.call(obj, <span class="string">&quot;constructor&quot;</span>) </span><br><span class="line">                &amp;&amp; !hasOwn.call(obj.constructor.prototype, <span class="string">&quot;isPrototypeOf&quot;</span>)</span><br><span class="line">               ) &#123;</span><br><span class="line">            	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> name;</span><br><span class="line">        <span class="keyword">for</span> (name <span class="keyword">in</span> obj) &#123;<span class="comment">// for-in循环的遍历顺序：先遍历自身属性后遍历继承属性</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name === <span class="literal">undefined</span> || hasOwn.call(obj, name); <span class="comment">// 最后一个属性为自身属性，则之前全为自身属性</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">jQuery 源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/10/jquery%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-md/">展开全文 >></a>
         </p>
       
 
@@ -387,7 +602,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 ghgws
+    		&copy; 2022 ghgws
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -462,7 +677,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color5">jQuery 源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
             
             <div class="clearfix"></div>
